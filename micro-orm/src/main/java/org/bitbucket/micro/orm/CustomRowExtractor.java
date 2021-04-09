@@ -1,4 +1,7 @@
 package org.bitbucket.micro.orm;
 
-public interface CustomRowExtractor {
+import java.sql.ResultSet;
+
+public interface CustomRowExtractor<T> {
+    T extract(ResultSet rs);
 }
