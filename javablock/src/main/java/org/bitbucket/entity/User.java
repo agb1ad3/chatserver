@@ -1,5 +1,11 @@
 package org.bitbucket.entity;
 
+import org.bitbucket.micro.orm.CustomRowMapper;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Objects;
+
 public class User {
 
     private long id;
@@ -16,7 +22,11 @@ public class User {
 
     private String phoneNumber;
 
+    public User() {
+    }
+
     public User(long id, String firstName, String lastName, String email, String login, String password, String phoneNumber) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -82,6 +92,25 @@ public class User {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id &&
+                Objects.equals(firstName, user.firstName) &&
+                Objects.equals(lastName, user.lastName) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(login, user.login) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(phoneNumber, user.phoneNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, email, login, password, phoneNumber);
+    }
+
+    @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
@@ -92,5 +121,17 @@ public class User {
                 ", password='" + password + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
+    }
+
+    public static CustomRowMapper<User> customRowMapper() {
+        return rs -> new User(
+                rs.getInt("id"),
+                rs.getString("firstName"),
+                rs.getString("lastName"),
+                rs.getString("email"),
+                rs.getString("login"),
+                rs.getString("password"),
+                rs.getString("phoneNumber")
+        );
     }
 }

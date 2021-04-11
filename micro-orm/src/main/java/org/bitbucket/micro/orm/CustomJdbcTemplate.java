@@ -18,10 +18,8 @@ public class CustomJdbcTemplate {
         List<T> result = new ArrayList<>();
         try (Connection connection = this.dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
-            if (params.length != 0) {
-                for (int i = 0; i < params.length; i++) {
-                    stmt.setObject(i + 1, params[i]);
-                }
+            for (int i = 0; i < params.length; i++) {
+                stmt.setObject(i + 1, params[i]);
             }
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -37,10 +35,8 @@ public class CustomJdbcTemplate {
         T result = null;
         try (Connection connection = this.dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
-            if (params.length != 0) {
-                for (int i = 0; i < params.length; i++) {
-                    stmt.setObject(i + 1, params[i]);
-                }
+            for (int i = 0; i < params.length; i++) {
+                stmt.setObject(i + 1, params[i]);
             }
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -56,10 +52,8 @@ public class CustomJdbcTemplate {
         T result = null;
         try (Connection connection = this.dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
-            if (params.length != 0) {
-                for (int i = 0; i < params.length; i++) {
-                    stmt.setObject(i + 1, params[i]);
-                }
+            for (int i = 0; i < params.length; i++) {
+                stmt.setObject(i + 1, params[i]);
             }
             ResultSet rs = stmt.executeQuery();
             result = re.extract(rs);
@@ -69,53 +63,46 @@ public class CustomJdbcTemplate {
         return result;
     }
 
-    public <T> T insert(String query, CustomRowMapper<T> rm, Object... params) {
-        T result = null;
+    public boolean insert(String query, Object... params) {
+        boolean result = false;
         try (Connection connection = this.dataSource.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
-            if (params.length != 0) {
-                for (int i = 0; i < params.length; i++) {
-                    stmt.setObject(i + 1, params[i]);
-                }
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+            for (int i = 0; i < params.length; i++) {
+                stmt.setObject(i + 1, params[i]);
             }
-            int row = stmt.executeUpdate();
-            if (row != 0) {
-                ResultSet rs = stmt.getGeneratedKeys();
-                rs.next();
-                result = rm.rowMap(rs);
-            }
+            result = stmt.execute();
         } catch (SQLException e) {
             System.out.printf("Message %s \n", e.getMessage());
         }
         return result;
     }
 
-    public void update(String query, Object... params) {
+    public boolean update(String query, Object... params) {
+        boolean result = false;
         try (Connection connection = this.dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
-            if (params.length != 0) {
-                for (int i = 0; i < params.length; i++) {
-                    stmt.setObject(i + 1, params[i]);
-                }
+            for (int i = 0; i < params.length; i++) {
+                stmt.setObject(i + 1, params[i]);
             }
-            stmt.execute();
+            result = stmt.execute();
         } catch (SQLException e) {
             System.out.printf("Message %s \n", e.getMessage());
         }
+        return result;
     }
 
-    public void delete(String query, Object... params) {
+    public boolean delete(String query, Object... params) {
+        boolean result = false;
         try (Connection connection = this.dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
-            if (params.length != 0) {
-                for (int i = 0; i < params.length; i++) {
-                    stmt.setObject(i + 1, params[i]);
-                }
+            for (int i = 0; i < params.length; i++) {
+                stmt.setObject(i + 1, params[i]);
             }
-            stmt.execute();
+            result = stmt.execute();
         } catch (SQLException e) {
             System.out.printf("Message %s \n", e.getMessage());
         }
+        return result;
     }
 
 }
