@@ -21,9 +21,7 @@ public class JsonHelper {
     }
 
     public static <T> Optional<T> fromFormat(String string, Class<T> cls){
-        Optional<T> result = Optional.empty();
-        result = (Optional<T>) mapper.convertValue(string,cls);
-        return result;
+        return Optional.of(mapper.convertValue(string,cls));
     }
 
 }
