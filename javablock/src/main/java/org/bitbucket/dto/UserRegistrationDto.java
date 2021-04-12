@@ -1,5 +1,7 @@
 package org.bitbucket.dto;
 
+import java.util.Objects;
+
 public class UserRegistrationDto {
 
     private String login;
@@ -11,6 +13,11 @@ public class UserRegistrationDto {
     private String email;
 
     private String phone;
+
+    public UserRegistrationDto() {
+    }
+
+    //TODO - maybe get rid of confirmation password
 
     public UserRegistrationDto(String login, String password, String confirmPassword, String email, String phone) {
         this.login = login;
@@ -40,4 +47,20 @@ public class UserRegistrationDto {
         return phone;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserRegistrationDto that = (UserRegistrationDto) o;
+        return Objects.equals(login, that.login) &&
+                Objects.equals(password, that.password) &&
+                Objects.equals(confirmPassword, that.confirmPassword) &&
+                Objects.equals(email, that.email) &&
+                Objects.equals(phone, that.phone);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(login, password, confirmPassword, email, phone);
+    }
 }
