@@ -1,3 +1,5 @@
+import org.bitbucket.dto.UserAuthorizationDto;
+import org.bitbucket.dto.UserRegistrationDto;
 import org.bitbucket.entity.User;
 import org.bitbucket.utils.JsonHelper;
 import org.junit.Assert;
@@ -10,6 +12,10 @@ public class JsonHelperTest {
     private Integer int1 = 9888;
 
     private User user = new User(1222,"Denys","Fedorovych","sssss","login","password","+234234234");
+
+    private UserAuthorizationDto userAuthorizationDto = new UserAuthorizationDto("login", "password");
+
+    private UserRegistrationDto userRegistrationDto = new UserRegistrationDto("login", "password", "password","email", "+22222222");
 
     @Test
     public void toFormatOutFormatEqualityString() {
@@ -27,6 +33,18 @@ public class JsonHelperTest {
     public void toFormatOutFormatEqualityUser() {
         String str = JsonHelper.toFormat(user).get();
         Assert.assertEquals(user,JsonHelper.fromFormat(str,User.class).get());
+    }
+
+    @Test
+    public void toFormatOutFormatEqualityUserAuthDto() {
+        String str = JsonHelper.toFormat(userAuthorizationDto).get();
+        Assert.assertEquals(userAuthorizationDto,JsonHelper.fromFormat(str,UserAuthorizationDto.class).get());
+    }
+
+    @Test
+    public void toFormatOutFormatEqualityUserRegDto() {
+        String str = JsonHelper.toFormat(userRegistrationDto).get();
+        Assert.assertEquals(userRegistrationDto,JsonHelper.fromFormat(str,UserRegistrationDto.class).get());
     }
 
 }

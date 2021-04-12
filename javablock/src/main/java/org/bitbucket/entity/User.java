@@ -122,16 +122,4 @@ public class User {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }
-
-    public static CustomRowMapper<User> customRowMapper() {
-        return rs -> new User(
-                rs.getInt("id"),
-                rs.getString("firstName"),
-                rs.getString("lastName"),
-                rs.getString("email"),
-                rs.getString("login"),
-                rs.getString("password"),
-                rs.getString("phoneNumber")
-        );
-    }
 }
