@@ -40,6 +40,8 @@ public class RowMapper {
     public static CustomRowMapper<UserRegistrationDto> getCustomRowMapperReg(){
         if (customRowMapperReg == null) {
             customRowMapperReg = rs -> new UserRegistrationDto(
+                    rs.getString("firstName"),
+                    rs.getString("lastName"),
                     rs.getString("login"),
                     rs.getString("password"),
                     rs.getString("confirmPassword"),

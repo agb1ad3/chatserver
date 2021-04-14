@@ -1,6 +1,6 @@
 package org.bitbucket;
 
-public class Main {
+public class ChatServerRun {
     public static void main(String[] args) {
 
     }

@@ -63,14 +63,21 @@ public class CustomJdbcTemplate {
         return result;
     }
 
-    public boolean insert(String query, Object... params) {
-        boolean result = false;
+    public <T> T insert(String query, CustomRowMapper<T> rm, Object... params) {
+        T result = null;
         try (Connection connection = this.dataSource.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(query)) {
-            for (int i = 0; i < params.length; i++) {
-                stmt.setObject(i + 1, params[i]);
+             PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+            if (params.length != 0) {
+                for (int i = 0; i < params.length; i++) {
+                    stmt.setObject(i + 1, params[i]);
+                }
             }
-            result = stmt.execute();
+            int row = stmt.executeUpdate();
+            if (row != 0) {
+                ResultSet rs = stmt.getGeneratedKeys();
+                rs.next();
+                result = rm.rowMap(rs);
+            }
         } catch (SQLException e) {
             System.out.printf("Message %s \n", e.getMessage());
         }
