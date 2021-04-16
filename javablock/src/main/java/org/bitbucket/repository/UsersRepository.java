@@ -15,7 +15,7 @@ public class UsersRepository {
 
     public User findByAuthDto(UserAuthorizationDto userAuthorizationDto){
         return jdbcTemplate.findBy(
-                "SELECT * FROM users WHERE login = ?, password = ?",
+                "SELECT * FROM users WHERE login = ? AND password = ?",
                 RowMapper.getCustomRowMapperUser(),
                 userAuthorizationDto.getLogin(),
                 userAuthorizationDto.getPassword()
@@ -32,7 +32,7 @@ public class UsersRepository {
 
     public User insert(UserRegistrationDto userRegistrationDto){
         return jdbcTemplate.insert(
-                "INSERT INTO users (first_name, last_name, email, login, password, phoneNumber) values(?, ?, ?, ?, ?, ?)",
+                "INSERT INTO users (first_name, last_name, email, login, password, phone_number) VALUES(?, ?, ?, ?, ?, ?)",
                 RowMapper.getCustomRowMapperUser(),
                 userRegistrationDto.getFirstName(),
                 userRegistrationDto.getLastName(),
@@ -52,16 +52,17 @@ public class UsersRepository {
 
     public void update(UserRegistrationDto userRegistrationDto){
         jdbcTemplate.update(
-                "UPDATE users" +
-                        "SET first_name = ?, last_name = ?, email = ?, login = ?, password = ?, phoneNumber = ?" +
+                "UPDATE users " +
+                        "SET first_name = ?, last_name = ?, email = ?, login = ?, password = ?, phone_number = ?" +
                         "WHERE login = ?",
                 userRegistrationDto.getFirstName(),
                 userRegistrationDto.getLastName(),
                 userRegistrationDto.getEmail(),
                 userRegistrationDto.getLogin(),
                 userRegistrationDto.getPassword(),
-                userRegistrationDto.getPhone()
-        );
+                userRegistrationDto.getPhone(),
+                userRegistrationDto.getLogin()
+                );
     }
 
 }

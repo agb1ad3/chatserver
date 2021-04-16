@@ -26,7 +26,7 @@ public class CustomJdbcTemplate {
                 result.add(rm.rowMap(rs));
             }
         } catch (SQLException e) {
-            System.out.printf("Message %s \n", e.getMessage());
+            e.printStackTrace();
         }
         return result;
     }
@@ -43,7 +43,7 @@ public class CustomJdbcTemplate {
                 result = rm.rowMap(rs);
             }
         } catch (SQLException e) {
-            System.out.printf("Message %s \n", e.getMessage());
+            e.printStackTrace();
         }
         return result;
     }
@@ -58,7 +58,7 @@ public class CustomJdbcTemplate {
             ResultSet rs = stmt.executeQuery();
             result = re.extract(rs);
         } catch (SQLException e) {
-            System.out.printf("Message %s \n", e.getMessage());
+            e.printStackTrace();
         }
         return result;
     }
@@ -79,7 +79,7 @@ public class CustomJdbcTemplate {
                 result = rm.rowMap(rs);
             }
         } catch (SQLException e) {
-            System.out.printf("Message %s \n", e.getMessage());
+            e.printStackTrace();
         }
         return result;
     }
@@ -93,7 +93,7 @@ public class CustomJdbcTemplate {
             }
             result = stmt.execute();
         } catch (SQLException e) {
-            System.out.printf("Message %s \n", e.getMessage());
+            e.printStackTrace();
         }
         return result;
     }
@@ -107,7 +107,7 @@ public class CustomJdbcTemplate {
             }
             result = stmt.execute();
         } catch (SQLException e) {
-            System.out.printf("Message %s \n", e.getMessage());
+            e.printStackTrace();
         }
         return result;
     }
