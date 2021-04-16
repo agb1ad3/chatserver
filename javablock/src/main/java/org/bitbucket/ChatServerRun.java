@@ -1,13 +1,13 @@
 package org.bitbucket;
 
-public class ChatServerRun {
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
 import org.bitbucket.config.ServerConfig;
 
 import javax.servlet.ServletException;
 
-public class Main {
+public class ChatServerRun {
+
     public static void main(String[] args) {
         Tomcat t = null;
         try {
@@ -17,7 +17,6 @@ public class Main {
         } catch (ServletException| LifecycleException e) {
             System.out.printf("Enter:%s",e.getMessage());
         }
-
-
     }
+
 }
