@@ -18,6 +18,11 @@ public class UserAuthorizationDto {
         this.password = password;
     }
 
+    public UserAuthorizationDto(UserRegistrationDto userRegistrationDto) {
+        this.login = userRegistrationDto.getLogin();
+        this.password = userRegistrationDto.getPassword();
+    }
+
     public String getLogin() {
         return login;
     }
