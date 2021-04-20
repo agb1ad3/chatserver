@@ -11,11 +11,35 @@ public class Token implements Serializable {
     private long userid;
 
     private String firstName;
+
     private String lastName;
 
     private Date expireIn;
 
     private Date createdAt;
+
+    public Token() {
+    }
+
+    public void setUserid(long userid) {
+        this.userid = userid;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setExpireIn(Date expireIn) {
+        this.expireIn = expireIn;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 
     public Token(Long id, String firstName, String lastName, Date expireIn, Date createdAt) {
         this.userid = id;
