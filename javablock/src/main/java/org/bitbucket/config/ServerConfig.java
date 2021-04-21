@@ -22,7 +22,7 @@ public class ServerConfig {
             webPort = "5432";
         }
         tomcat.setPort(Integer.valueOf(webPort));
-        Context ctx = tomcat.addWebapp("", new File(".").getAbsolutePath());
+        Context ctx = tomcat.addWebapp("/", new File(".").getAbsolutePath());
 
         tomcat.addServlet("","UsersHandler",HandlerConfig.usersHandlers());
         ctx.addServletMappingDecoded("/","UsersHandler");
